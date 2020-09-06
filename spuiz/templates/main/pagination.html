@@ -1,0 +1,37 @@
+{% load static %}
+
+
+{% if is_paginated %}
+<div class="pagination">
+
+    {% if lists.has_previous %}
+    <a class="pagination-action" href="?page=1{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">
+        <i class="fas fa-angle-double-left"></i>
+    </a>
+    <a class="pagination-action"
+        href="?page={{ lists.previous_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">
+        <i class="fas fa-angle-left"></i>
+    </a>
+    {% endif %}
+
+    {% for num in lists.paginator.page_range %}
+    {% if lists.number == num %}
+    <span class="pagination-number pagination-current">{{ num }}</span>
+    {% elif num > lists.number|add:'-3' and num < lists.number|add:'3' %}
+    <a class="pagination-number"
+        href="?page={{ num }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if lists.has_next %}
+    <a class="pagination-action"
+        href="?page={{ lists.next_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">
+        <i class="fas fa-angle-right"></i>
+    </a>
+    <a class="pagination-action"
+        href="?page={{ lists.paginator.num_pages }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">
+        <i class="fas fa-angle-double-right"></i>
+    </a>
+    {% endif %}
+</div>
+{% endif %}
