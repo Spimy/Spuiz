@@ -1,0 +1,94 @@
+.container {
+    margin: 0;
+}
+
+#authentication {
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100vh;
+    padding: 1rem 0;
+}
+
+#authentication .authentication-form {
+    background-color: var(--grey-light);
+    border-radius: 0.25em;
+    padding: 1em 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#authentication .heading {
+    text-align: center;
+    font-size: 0.75em;
+}
+
+#authentication .heading h1 {
+    font-weight: 900;
+    margin: 0;
+}
+
+#authentication .heading .description {
+    margin-top: 0;
+}
+
+#authentication .fields {
+    display: flex;
+    flex-direction: column;
+}
+
+#authentication .fields .field {
+    background-color: var(--grey-lighter);
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    border-radius: 0.25em;
+}
+
+#authentication .fields .field label {
+    font-size: 0.75em;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+#authentication .fields .field input {
+    border-radius: 0.25em;
+}
+
+#authentication .submit-btn {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+#authentication .option {
+    color: #f1f1f1;
+    font-size: 0.65em;
+    font-weight: 300;
+}
+
+#authentication .option i {
+    font-size: 0.85em;
+    margin-left: 0.25em;
+}
+
+#authentication .forgot-pass {
+    color: lightblue;
+    font-size: 0.65em;
+    font-weight: 300;
+}
+
+@media (max-width: 350px) {
+    #authentication {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    #authentication .authentication-form {
+        width: 100%;
+    }
+}

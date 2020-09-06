@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock styles %}
+
+{% block content %}
+
+<section id="authentication">
+
+    <form class="authentication-form" method="post">{% csrf_token %}
+
+        <div class="heading">
+            <h1 class="title">Welcome to Spuiz</h1>
+            <p class="description">A place to create and answer quizzes</p>
+        </div>
+
+        <div class="fields">
+            {% for field in form.visible_fields %}
+            <div class="field">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <button class="submit-btn" class="translucent" type="submit">{{ button }}</button>
+
+        {% if page_name == 'register' %}
+        <a class="option" href="{% url 'accounts:login' %}">
+            Already have an account? Sign In
+            <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+        {% else %}
+        <a class="option" href="{% url 'accounts:register' %}">
+            Create an account
+            <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
+        {% endif %}
+
+        {% if page_name == 'login' %}
+        <a class="forgot-pass" href="{% url 'accounts:register' %}">Forgot your Password?</a>
+        {% endif %}
+
+    </form>
+
+</section>
+
+{% comment %} {% include 'message.html' with code='error' type='snackbar' %} {% endcomment %}
+
+{% endblock content %}
