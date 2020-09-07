@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 
 ADDITIONAL_USER_FIELDS = (
-    ('Profile', {'fields': ('avatar', 'biography')}),
+    ('Profile', {'fields': ('avatar', 'banner', 'biography')}),
 )
 
 
