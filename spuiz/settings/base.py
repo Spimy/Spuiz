@@ -121,5 +121,5 @@ SUCCESS_LOGIN_URL = ''
 AUTH_USER_MODEL = 'accounts.User'
 
 AUTHENTICATION_BACKENDS = [
-    'apps.accounts.backends.EmailOrUserBackend'
+    'apps.accounts.backends.EmailOrUsernameBackend'
 ]
