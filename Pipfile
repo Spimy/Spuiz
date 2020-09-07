@@ -13,6 +13,7 @@ pillow = "*"
 cloudinary = "*"
 whitenoise = "*"
 gunicorn = "*"
+django-cloudinary-storage = "*"
 
 [requires]
 python_version = "3.8"
