@@ -8,7 +8,7 @@ ADDITIONAL_USER_FIELDS = (
 
 
 class CustomUserAdmin(UserAdmin):
-    """ Add extra user fields to default user admin """
+    ''' Add extra user fields to default user admin'''
     add_fieldsets = UserAdmin.add_fieldsets + ADDITIONAL_USER_FIELDS
     fieldsets = UserAdmin.fieldsets + ADDITIONAL_USER_FIELDS
 

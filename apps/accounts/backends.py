@@ -4,11 +4,11 @@ from django.contrib.auth.backends import ModelBackend
 
 
 class EmailOrUsernameBackend(ModelBackend):
-    """
+    '''
     Allow users to authenticate using case insensitive username
     or using email which provides a way for users who forgot their
     username to authenticate themselves
-    """
+    '''
 
     def authenticate(self, request, username=None, password=None, **kwargs):
 

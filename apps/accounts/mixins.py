@@ -3,7 +3,7 @@ from django.urls.base import reverse_lazy
 
 
 class SuccessUrlMixin(object):
-    """ Allows to redirect a view to its correct success url. """
+    ''' Allows to redirect a view to its correct success url. '''
 
     success_url = reverse_lazy(settings.SUCCESS_LOGIN_URL)
 
