@@ -52,10 +52,12 @@
 }
 
 #authentication .fields .field input {
+    font-size: 0.85em;
     border-radius: 0.25em;
 }
 
 #authentication .submit-btn {
+    font-size: 0.75em;
     width: 100%;
     margin: 0.5em 0;
 }
@@ -78,7 +80,9 @@
 }
 
 @media (max-width: 480px) {
-    #authentication .authentication-form {
-        padding: 0.5em;
+
+    #authentication {
+        font-size: 0.9rem;
     }
+
 }
