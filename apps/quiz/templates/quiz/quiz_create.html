@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Create Quiz{% endblock title %}
+
+{% block content %}
+
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div id="questions">
+        {{ qs_formset.management_form }}
+        {% for form in qs_formset %}
+        <fieldset class="question_form">
+            <legend>Questions</legend>
+            {{ form.as_p }}
+
+            <div class="answers">
+                {{ ans_formset.management_form }}
+                {% for form in ans_formset %}
+                <fieldset class="answer_form">
+                    <legend>Answer</legend>
+                    {{ form.as_p }}
+                </fieldset>
+                {% endfor %}
+            </div>
+            <p><input type="button" value="Add Answer" class="btn_add_answer" id="question-{{ forloop.counter0 }}"></p>
+        </fieldset>
+        {% endfor %}
+    </div>
+    <p><input type="button" id="btn_add_question" value="Add another question"></p>
+    <p><input type="submit" value="Save"></p>
+</form>
+
+<script src="{% static 'quiz/js/script.js' %}"></script>
+
+{% endblock content %}
