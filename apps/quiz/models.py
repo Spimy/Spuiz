@@ -39,7 +39,7 @@ class Quiz(models.Model):
 
 class Question(models.Model):
     question = models.CharField(max_length=255)
-    quiz = models.ManyToManyField(Quiz, related_name='questions')
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.question
