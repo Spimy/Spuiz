@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ object.title }}{% endblock title %}
+
+{% block content %}
+
+<img src="{{ object.thumbnail.url }}" alt="{{ object.slug }}">
+
+{% for question in object.question_set.all %}
+<p>{{ question.question }}</p>
+{% if object.mcq %}
+{% for answer in question.answer_set.randomise %}
+<label for="{{ answer.id }}">{{ answer.answer }}</label>
+<input type="radio" name="answer-{{ question.id }}" id="{{ answer.id }}">
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+{% endblock %}
