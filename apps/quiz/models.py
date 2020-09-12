@@ -1,6 +1,5 @@
 import random
 from django.db import models
-from django.db.models.fields.related import ManyToManyField
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 from spuiz import fields
