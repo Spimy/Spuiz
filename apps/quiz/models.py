@@ -40,6 +40,7 @@ class Quiz(models.Model):
 class Question(models.Model):
     question = models.CharField(max_length=255)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
         return self.question
@@ -49,6 +50,7 @@ class Answer(models.Model):
     answer = models.CharField(max_length=255)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     correct = models.BooleanField(default=True)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
         return self.answer
