@@ -1,23 +1,8 @@
 from django.db import models
+from django.db.models.fields.related import ManyToManyField
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 from spuiz import fields
-
-
-class Question(models.Model):
-    question = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.question
-
-
-class Answer(models.Model):
-    answer = models.CharField(max_length=255)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    correct = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.answer
 
 
 class Quiz(models.Model):
@@ -50,3 +35,20 @@ class Quiz(models.Model):
 
     class Meta:
         verbose_name_plural = 'Quizzes'
+
+
+class Question(models.Model):
+    question = models.CharField(max_length=255)
+    quiz = models.ManyToManyField(Quiz, related_name='questions')
+
+    def __str__(self):
+        return self.question
+
+
+class Answer(models.Model):
+    answer = models.CharField(max_length=255)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    correct = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.answer
