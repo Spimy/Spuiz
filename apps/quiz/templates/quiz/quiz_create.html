@@ -2,30 +2,63 @@
 {% load static %}
 
 {% block title %}Create Quiz{% endblock title %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'quiz/css/quiz_create.css' %}">
+{% endblock styles %}
 
 {% block content %}
 
-<form enctype="multipart/form-data" method="post">
+<form enctype="multipart/form-data" method="post" id="quiz-form">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="core">
+        <div class="field title">
+            <h2>{{ form.title.label }}</h2>
+            {{ form.title }}
+        </div>
+        <div class="field thumbnail">
+            <h2>{{ form.thumbnail.label }}</h2>
+            <div class="dropbox">
+                {{ form.thumbnail }}
+                <p>Drop image here or click to upload</p>
+                <img style="display: none;" class="thumbnail-preview">
+            </div>
+        </div>
+        <div class="button-container">
+            <input type="button" onclick="clearPreview(this)" value="Reset Thumbnail" class="reset-thumbnail-btn">
+            <div class="checkboxes">
+                <div class="mcq-box">
+                    {{ form.mcq }}
+                    <label class="no-select" for="{{ form.mcq.id_for_label }}">{{ form.mcq.label }}</label>
+                </div>
+                <div class="media-box">
+                    {{ form.media }}
+                    <label class="no-select" for="{{ form.media.id_for_label }}">{{ form.media.label }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="questions">
         {{ qs_formset.management_form }}
         {% for form in qs_formset %}
-        <fieldset class="question_form">
-            <legend>Questions</legend>
-            {{ form.as_p }}
-
+        <h2>Questions</h2>
+        <div class="question">
+            <h3>Question</h3>
+            {{ form.question }}
             <div class="answers">
                 {{ ans_formset.management_form }}
+                <h3>Answers</h3>
                 {% for form in ans_formset %}
-                <fieldset class="answer_form">
-                    <legend>Answer</legend>
-                    {{ form.as_p }}
-                </fieldset>
+                    <div class="answer">
+                        {{ form.answer }}
+                        <div title="Check the box if the answer you is meant to be correct">
+                        {{ form.correct }}
+                        <label for="{{ form.correct.id_for_label }}"><i class="fas fa-check"></i></label>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
             <p><input type="button" value="Add Answer" class="btn_add_answer" id="question-{{ forloop.counter0 }}"></p>
-        </fieldset>
+        </div>
         {% endfor %}
     </div>
     <p><input type="button" id="btn_add_question" value="Add another question"></p>
