@@ -15,22 +15,21 @@ addAnswerBtn.addEventListener('click', () => {
 
     // HTML for new answer element
     const new_answer_form = (
-        '<legend>Answer</legend>' +
-        '<p>' +
         `<input type="text" name="ans_formset_${question_ptr}-${question_answer_form_count}-answer" maxlength="255" id="id_ans_formset_${question_ptr}-${question_answer_form_count}-answer">` +
-        '</p>' +
-        '<p>' +
-        `<label for="id_ans_formset_${question_ptr}-${question_answer_form_count}-correct">Correct:</label>` +
+        `<div title="Check the box if the answer you is meant to be correct">` +
         `<input type="checkbox" name="ans_formset_${question_ptr}-${question_answer_form_count}-correct" id="id_ans_formset_${question_ptr}-${question_answer_form_count}-correct" checked="" />` +
+        `<label for="id_ans_formset_${question_ptr}-${question_answer_form_count}-correct"><i class="fas fa-check"></i></label>` +
         `<input type="hidden" name="ans_formset_${question_ptr}-${question_answer_form_count}-id" id="id_ans_formset_${question_ptr}-${question_answer_form_count}-id">` +
         `<input type="hidden" name="ans_formset_${question_ptr}-${question_answer_form_count}-question" id="id_ans_formset_${question_ptr}-${question_answer_form_count}-question">` +
-        '</p>' +
-        `<p><input type="button" class="btn_remove_answer" value="Remove answer" id="question-${question_ptr}"></p>`
+        `</div>` +
+        `<div title="Remove answer">` +
+        `<input type="button" class="remove_answer" value="&#xf00d" id="question-${question_ptr}">` +
+        `</div>`
     );
 
     // Append the new answer element in a fieldset after the previous answer element
-    const wrapper = document.createElement('fieldset');
-    wrapper.className = 'answer_form';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'answer';
     wrapper.innerHTML = new_answer_form;
     addAnswerBtn.parentElement.parentElement.querySelector('.answers').append(wrapper);
 
@@ -40,7 +39,7 @@ addAnswerBtn.addEventListener('click', () => {
 document.addEventListener('click', (event) => {
 
     // Handles delete answer button
-    if (event.target && event.target.className == 'btn_remove_answer') {
+    if (event.target && event.target.className == 'remove_answer') {
 
         // Refer to addAnswerBtn event as this is similar
         const question_ptr = event.target.getAttribute('id').split('-')[1];
@@ -49,7 +48,30 @@ document.addEventListener('click', (event) => {
 
         // Decrement answer number to keep track of number of answers
         total_question_answers.value = question_answer_form_count - 1;
-        event.target.parentElement.parentElement.remove();
+
+        const answers = event.target.parentElement.parentElement.parentElement;
+        const contents = [];
+
+        const answersNode = answers.querySelectorAll('.answer');
+        for (let i = 0; i < answersNode.length; i++) {
+            // Get the content of all answers and add them into an array
+            contents.push(answersNode[i].querySelector('input').value);
+        }
+        // Always remove the last answer input
+        answers.removeChild(answers.lastChild);
+
+        // If there are more contents than number of answers present in frontend
+        // it means that the answer field deleted was filled and that content should
+        // be deleted as well so we find that content and delete it from the array
+        if (contents.length > answersNode.length - 1) {
+            const eventTargetIndex = contents.indexOf(event.target.parentElement.parentElement.querySelector('input').value);
+            contents.splice(eventTargetIndex, 1);
+        }
+
+        // This shifts all the answers' values to their correct position
+        for (let i = 0; i < answersNode.length; i++) {
+            answersNode[i].querySelector('input').value = contents[i];
+        }
 
     }
 
