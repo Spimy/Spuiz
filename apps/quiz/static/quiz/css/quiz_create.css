@@ -1,0 +1,183 @@
+#quiz-form {
+    font-size: 1rem;
+    background-color: var(--grey-light);
+    padding: 1em;
+    margin: 5em 10em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    border-radius: 0.5em;
+}
+
+@media (max-width: 1000px) {
+    #quiz-form {
+        margin: 0;
+    }
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: -0.125em;
+}
+
+#quiz-form input[type="text"] {
+    background-color: var(--grey-dark);
+    width: 100%;
+    border-radius: 0.25em;
+}
+
+input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+}
+
+input[type="checkbox"]:checked + label {
+    background-color: var(--purple-normal) !important;
+}
+
+.core {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.dropbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    outline: 0.125em dashed var(--text);
+    outline-offset: -0.75em;
+    height: 20em;
+    background-color: var(--grey-dark);
+    position: relative;
+    padding: 0.75em;
+    transition: 0.2s ease-in-out;
+    text-align: center;
+    border-radius: 0.25em;
+}
+
+.dropbox:hover {
+    color: var(--purple-light);
+    outline: 2px dashed var(--purple-light);
+}
+
+.dropbox .thumbnail-preview {
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+}
+
+.dropbox input {
+    cursor: pointer;
+    height: 100%;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+}
+
+.button-container {
+    gap: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.8em;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-container .reset-thumbnail-btn {
+    background-color: var(--purple-normal);
+    border-radius: 0.25em;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 0.5em 1em;
+}
+
+.button-container .checkboxes {
+    gap: 0.75em;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 490px) {
+    .dropbox {
+        height: 15em;
+    }
+
+    .button-container .checkboxes {
+        width: 100%;
+    }
+}
+
+.button-container .checkboxes label {
+    background-color: var(--grey-dark);
+    position: relative;
+    border-radius: 0.25em;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+
+.button-container .checkboxes input[type="checkbox"]:checked + label::after {
+    content: " \f00c";
+    font-family: "FontAwesome", "Titillium Web", sans-serif;
+}
+
+#questions {
+    background-color: var(--grey-dark);
+    padding: 1em;
+    border-radius: 0.5em;
+}
+
+#questions h2 {
+    margin-bottom: 0;
+}
+
+#questions .question {
+    background-color: var(--grey-light);
+    padding: 1em;
+    border-radius: 0.5em;
+}
+
+#questions .question h3:first-child {
+    margin-bottom: 0;
+}
+
+#questions .question h3 {
+    margin-top: 0.5em;
+    margin-bottom: -0.25em;
+}
+
+#questions .question .answer {
+    display: flex;
+    gap: 0.25em;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5em 0;
+}
+
+#questions .question .answer div {
+    font-size: 0.8em;
+}
+
+#questions .question .answer div label {
+    background-color: var(--grey-dark);
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+    cursor: pointer;
+}
+
+#questions .question .answer .remove_answer {
+    font-family: "FontAwesome";
+    background-color: var(--purple-light);
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+    cursor: pointer;
+}
