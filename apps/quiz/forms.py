@@ -10,7 +10,11 @@ class QuizForm(forms.ModelForm):
         widget=forms.HiddenInput
     )
 
-    mcq = forms.BooleanField(label='Multiple Choice', require=False)
+    mcq = forms.BooleanField(
+        label='Multiple Choice',
+        required=False,
+        initial=True
+    )
 
     class Meta:
         model = Quiz
