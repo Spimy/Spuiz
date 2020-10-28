@@ -17,7 +17,7 @@
         </div>
         <div class="field thumbnail">
             <h2>{{ form.thumbnail.label }}</h2>
-            {% include 'main/dropbox.html' with input=form.thumbnail %}
+            {% include 'main/dropbox.html' with input=form.thumbnail preview=True %}
         </div>
         <div class="button-container">
             <input type="button" onclick="clearPreview(this)" value="Reset Thumbnail" class="reset-thumbnail-btn">
