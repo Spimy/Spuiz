@@ -76,27 +76,3 @@ document.addEventListener('click', (event) => {
     }
 
 });
-
-// Thumbnail preview
-const thumbnail = document.querySelector('.thumbnail');
-
-const showPreview = (event) => {
-    if (event.target.files.length > 0) {
-        const src = URL.createObjectURL(event.target.files[0]);
-        const preview = event.target.parentElement.getElementsByClassName('thumbnail-preview')[0];
-
-        preview.src = src;
-        preview.style.display = 'block';
-        preview.style.cursor = 'initial';
-    }
-}
-
-const clearPreview = (btn) => {
-    const preview = btn.parentElement.parentElement.getElementsByClassName("thumbnail-preview")[0];
-    preview.src = "";
-    preview.style.display = "none";
-    preview.parentElement.removeAttribute("style");
-    preview.parentElement.getElementsByTagName("input")[0].value = "";
-}
-
-thumbnail.addEventListener('change', showPreview);
