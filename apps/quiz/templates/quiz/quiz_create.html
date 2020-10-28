@@ -17,11 +17,7 @@
         </div>
         <div class="field thumbnail">
             <h2>{{ form.thumbnail.label }}</h2>
-            <div class="dropbox">
-                {{ form.thumbnail }}
-                <p>Drop image here or click to upload</p>
-                <img style="display: none;" class="thumbnail-preview">
-            </div>
+            {% include 'main/dropbox.html' with input=form.thumbnail %}
         </div>
         <div class="button-container">
             <input type="button" onclick="clearPreview(this)" value="Reset Thumbnail" class="reset-thumbnail-btn">
@@ -48,13 +44,13 @@
                 {{ ans_formset.management_form }}
                 <h3>Answers</h3>
                 {% for form in ans_formset %}
-                    <div class="answer">
-                        {{ form.answer }}
-                        <div title="Check the box if the answer you is meant to be correct">
+                <div class="answer">
+                    {{ form.answer }}
+                    <div title="Check the box if the answer you is meant to be correct">
                         {{ form.correct }}
                         <label for="{{ form.correct.id_for_label }}"><i class="fas fa-check"></i></label>
-                        </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
             <p><input type="button" value="Add Answer" class="btn_add_answer" id="question-{{ forloop.counter0 }}"></p>
