@@ -47,43 +47,6 @@ input[type="checkbox"]:checked + label {
     gap: 0.5em;
 }
 
-.dropbox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    outline: 0.125em dashed var(--text);
-    outline-offset: -0.75em;
-    height: 20em;
-    background-color: var(--grey-dark);
-    position: relative;
-    padding: 0.75em;
-    transition: 0.2s ease-in-out;
-    text-align: center;
-    border-radius: 0.25em;
-}
-
-.dropbox:hover {
-    color: var(--purple-light);
-    outline: 2px dashed var(--purple-light);
-}
-
-.dropbox .thumbnail-preview {
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    width: 100%;
-}
-
-.dropbox input {
-    cursor: pointer;
-    height: 100%;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    width: 100%;
-}
-
 .button-container {
     gap: 1em;
     display: flex;
