@@ -53,12 +53,17 @@
                 </div>
                 {% endfor %}
             </div>
-            <p><input type="button" value="Add Answer" class="btn_add_answer" id="question-{{ forloop.counter0 }}"></p>
+            <p>
+                <input type="button" value="Add Answer" class="btn_add_answer" id="question-{{ forloop.counter0 }}"
+                    onclick="addAnswer(this)">
+            </p>
         </div>
         {% endfor %}
     </div>
-    <p><input type="button" id="btn_add_question" value="Add another question"></p>
-    <p><input type="submit" value="Save"></p>
+    <div class="button-container">
+        <input type="button" id="btn_add_question" value="Add another question">
+        <input type="submit" value="Save">
+    </div>
 </form>
 
 <script src="{% static 'quiz/js/script.js' %}"></script>
