@@ -15,7 +15,7 @@ class QuizCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['qs_formset'] = QuestionFormSet(prefix='qs_formset')
+        context['qs_formset'] = QuestionFormSet()
         context['ans_formset'] = AnswerFormSet(prefix='ans_formset_0')
         return context
 
@@ -24,23 +24,22 @@ class QuizCreateView(LoginRequiredMixin, CreateView):
 
         questions_formset = QuestionFormSet(
             data=form.data,
-            instance=self.object,
-            prefix='qs_formset'
+            instance=self.object
         )
 
         if questions_formset.is_valid():
             questions = questions_formset.save()
 
-            questions_count = 0
+            question_count = 0
             for question in questions:
                 answers_formset = AnswerFormSet(
                     data=form.data,
                     instance=question,
-                    prefix=f'ans_formset_{questions_count}',
+                    prefix=f'ans_formset_{question_count}',
                 )
                 if answers_formset.is_valid():
                     answers_formset.save()
-                questions_count += 1
+                question_count += 1
 
         return result
 
