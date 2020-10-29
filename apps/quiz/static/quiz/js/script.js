@@ -1,77 +1,110 @@
-const addAnswerBtn = document.querySelector('.btn_add_answer');
 const addQuestionBtn = document.querySelector('#btn_add_question');
 
-addAnswerBtn.addEventListener('click', () => {
 
-    // Question number
-    const question_ptr = addAnswerBtn.getAttribute('id').split('-')[1];
+const addAnswer = (addAnswerBtn) => {
 
-    // Answer number
-    const total_question_answers = document.querySelector(`[name=ans_formset_${question_ptr}-TOTAL_FORMS]`);
-    const question_answer_form_count = parseInt(total_question_answers.value);
+    const answerForm = addAnswerBtn.parentElement.parentElement.querySelectorAll('.answer');
+    const container = addAnswerBtn.parentElement.parentElement.querySelector('.answers');
+    const questionInput = addAnswerBtn.parentElement.parentElement.getElementsByTagName('input')[0];
 
-    // Increment answer number for next answer
-    total_question_answers.value = question_answer_form_count + 1;
+    const questionNum = questionInput.getAttribute('name').split('-')[1];
+    let answerNum = answerForm.length - 1;
 
-    // HTML for new answer element
-    const new_answer_form = (
-        `<input type="text" name="ans_formset_${question_ptr}-${question_answer_form_count}-answer" maxlength="255" id="id_ans_formset_${question_ptr}-${question_answer_form_count}-answer">` +
-        `<div title="Check the box if the answer you is meant to be correct">` +
-        `<input type="checkbox" name="ans_formset_${question_ptr}-${question_answer_form_count}-correct" id="id_ans_formset_${question_ptr}-${question_answer_form_count}-correct" checked="" />` +
-        `<label for="id_ans_formset_${question_ptr}-${question_answer_form_count}-correct"><i class="fas fa-check"></i></label>` +
-        `<input type="hidden" name="ans_formset_${question_ptr}-${question_answer_form_count}-id" id="id_ans_formset_${question_ptr}-${question_answer_form_count}-id">` +
-        `<input type="hidden" name="ans_formset_${question_ptr}-${question_answer_form_count}-question" id="id_ans_formset_${question_ptr}-${question_answer_form_count}-question">` +
-        `</div>` +
-        `<div title="Remove answer">` +
-        `<input type="button" class="remove_answer" value="&#xf00d" id="question-${question_ptr}">` +
-        `</div>`
-    );
+    const newAnswer = answerForm[0].cloneNode(true);
 
-    // Append the new answer element in a fieldset after the previous answer element
+    const removeBtn = '<input type="button" class="remove_answer" value="&#xf00d">';
     const wrapper = document.createElement('div');
-    wrapper.className = 'answer';
-    wrapper.innerHTML = new_answer_form;
-    addAnswerBtn.parentElement.parentElement.querySelector('.answers').append(wrapper);
+    wrapper.title = 'Remove answer'
+    wrapper.innerHTML = removeBtn;
+    newAnswer.appendChild(wrapper)
+
+    const formRegex = RegExp('ans_formset_(\\d)-(\\d){1}-', 'g');
+
+    answerNum++;
+    newAnswer.innerHTML = newAnswer.innerHTML.replace(formRegex, `ans_formset_${questionNum}-${answerNum}-`);
+    container.appendChild(newAnswer);
+
+    const totalAnswers = document.querySelector(`#id_ans_formset_${questionNum}-TOTAL_FORMS`);
+    totalAnswers.setAttribute('value', `${answerNum + 1}`);
+
+}
+
+
+addQuestionBtn.addEventListener('click', (event) => {
+
+    const addQuestionBtn = event.target;
+    const questionForm = addQuestionBtn.parentElement.parentElement.querySelectorAll('.question');
+    const container = addQuestionBtn.parentElement.parentElement.querySelector('#questions');
+    const totalQuestions = document.querySelector('#id_question_set-TOTAL_FORMS');
+
+    let questionNum = questionForm.length - 1;
+    questionNum++
+
+    const newQuestion = (
+        `<h3>Question</h3>` +
+        `<input type="text" name="question_set-${questionNum}-question" maxlength="255" id="id_question_set-${questionNum}-question">` +
+        `<div class="answers">` +
+        `<input type="hidden" name="ans_formset_${questionNum}-TOTAL_FORMS" value="1" id="id_ans_formset_${questionNum}-TOTAL_FORMS">` +
+        `<input type="hidden" name="ans_formset_${questionNum}-INITIAL_FORMS" value="0" id="id_ans_formset_${questionNum}-INITIAL_FORMS">` +
+        `<input type="hidden" name="ans_formset_${questionNum}-MIN_NUM_FORMS" value="0" id="id_ans_formset_${questionNum}-MIN_NUM_FORMS">` +
+        `<input type="hidden" name="ans_formset_${questionNum}-MAX_NUM_FORMS" value="1000" id="id_ans_formset_${questionNum}-MAX_NUM_FORMS">` +
+        `<h3>Answers</h3>` +
+        `<div class="answer">` +
+        `<input type="text" name="ans_formset_${questionNum}-0-answer" id="id_ans_formset_${questionNum}-0-answer">` +
+        `<div title="Check the box if the answer you is meant to be correct">` +
+        `<input type="checkbox" name="ans_formset_${questionNum}-0-correct" id="id_ans_formset_${questionNum}-0-correct" checked="">` +
+        `<label for="id_ans_formset_${questionNum}-0-correct"><i class="fas fa-check" aria-hidden="true"></i></label>` +
+        `</div>` +
+        `</div>` +
+        `</div>` +
+        `<p>` +
+        `<input type="button" value="Add Answer" class="btn_add_answer" id="question-${questionNum}" onclick="addAnswer(this)">` +
+        `</p>`
+    );
+    const wrapper = document.createElement('div');
+    wrapper.className = 'question';
+    wrapper.innerHTML = newQuestion;
+
+    container.appendChild(wrapper);
+    totalQuestions.setAttribute('value', `${questionNum + 1}`);
 
 });
 
-// This is for dynamically generated button events
+
 document.addEventListener('click', (event) => {
 
     // Handles delete answer button
     if (event.target && event.target.className == 'remove_answer') {
 
-        // Refer to addAnswerBtn event as this is similar
-        const question_ptr = event.target.getAttribute('id').split('-')[1];
-        const total_question_answers = document.querySelector(`[name=ans_formset_${question_ptr}-TOTAL_FORMS]`);
-        const question_answer_form_count = parseInt(total_question_answers.value);
+        const removeAnswerBtn = event.target;
+        const answerForm = removeAnswerBtn.parentElement.parentElement.parentElement.querySelectorAll('.answer');
+        const container = removeAnswerBtn.parentElement.parentElement.parentElement;
+        const totalAnswers = document.querySelector('#id_ans_formset_0-TOTAL_FORMS');
 
-        // Decrement answer number to keep track of number of answers
-        total_question_answers.value = question_answer_form_count - 1;
+        let answerNum = answerForm.length - 1;
 
-        const answers = event.target.parentElement.parentElement.parentElement;
         const contents = [];
-
-        const answersNode = answers.querySelectorAll('.answer');
-        for (let i = 0; i < answersNode.length; i++) {
+        for (let i = 0; i < answerNum + 1; i++) {
             // Get the content of all answers and add them into an array
-            contents.push(answersNode[i].querySelector('input').value);
+            contents.push(answerForm[i].querySelector('input').value);
         }
         // Always remove the last answer input
-        answers.removeChild(answers.lastChild);
+        container.removeChild(container.lastChild);
 
         // If there are more contents than number of answers present in frontend
         // it means that the answer field deleted was filled and that content should
         // be deleted as well so we find that content and delete it from the array
-        if (contents.length > answersNode.length - 1) {
-            const eventTargetIndex = contents.indexOf(event.target.parentElement.parentElement.querySelector('input').value);
+        if (contents.length > answerNum) {
+            const eventTargetIndex = contents.indexOf(removeAnswerBtn.parentElement.parentElement.querySelector('input').value);
             contents.splice(eventTargetIndex, 1);
         }
 
         // This shifts all the answers' values to their correct position
-        for (let i = 0; i < answersNode.length; i++) {
-            answersNode[i].querySelector('input').value = contents[i];
+        for (let i = 0; i < answerNum + 1; i++) {
+            answerForm[i].querySelector('input').value = contents[i];
         }
+
+        totalAnswers.setAttribute('value', `${answerNum}`);
 
     }
 
