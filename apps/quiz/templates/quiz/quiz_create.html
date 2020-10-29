@@ -10,6 +10,7 @@
 
 <form enctype="multipart/form-data" method="post" id="quiz-form">
     {% csrf_token %}
+    {{ form.author }}
     <div class="core">
         <div class="field title">
             <h2>{{ form.title.label }}</h2>
