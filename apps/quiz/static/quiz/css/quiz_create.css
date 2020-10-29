@@ -1,8 +1,8 @@
 #quiz-form {
     font-size: 1rem;
     background-color: var(--grey-light);
-    padding: 1em;
-    margin: 5em 10em;
+    padding: 2em;
+    margin: 5em 3em;
     display: flex;
     flex-direction: column;
     gap: 2em;
@@ -11,7 +11,8 @@
 
 @media (max-width: 1000px) {
     #quiz-form {
-        margin: 0;
+        margin: 2em 0;
+        padding: 1em;
     }
 }
 
@@ -33,6 +34,13 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked + label {
     background-color: var(--purple-normal) !important;
+}
+
+input[type="button"],
+input[type="submit"] {
+    background-color: var(--purple-normal);
+    border-radius: 0.25em;
+    cursor: pointer;
 }
 
 .core {
@@ -71,10 +79,6 @@ input[type="checkbox"]:checked + label {
 }
 
 @media (max-width: 490px) {
-    .dropbox {
-        height: 15em;
-    }
-
     .button-container .checkboxes {
         width: 100%;
     }
@@ -107,6 +111,11 @@ input[type="checkbox"]:checked + label {
     background-color: var(--grey-light);
     padding: 1em;
     border-radius: 0.5em;
+    margin: 1em 0;
+}
+
+#questions .question:last-child {
+    margin-bottom: 0;
 }
 
 #questions .question h3:first-child {
